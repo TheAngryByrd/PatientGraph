@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ApplicationDataStore" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ApplicationDataStore">
+    <EntitySet Name="LabsSet" EntityType="ApplicationDataStore.Labs" store:Type="Tables" Schema="dbo" Table="LabsSet" />
+    <EntitySet Name="Patients" EntityType="ApplicationDataStore.Patient" store:Type="Tables" Schema="dbo" Table="Patients" />
+    <AssociationSet Name="Patient_Labs" Association="ApplicationDataStore.Patient_Labs">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="Labs" EntitySet="LabsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Labs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ViralLoad" Type="int" Nullable="false" />
+    <Property Name="LabDate" Type="datetime" Nullable="false" />
+    <Property Name="Patient_Labs" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <Association Name="Patient_Labs">
+    <End Role="Patient" Type="ApplicationDataStore.Patient" Multiplicity="1" />
+    <End Role="Labs" Type="ApplicationDataStore.Labs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Labs">
+        <PropertyRef Name="Patient_Labs" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

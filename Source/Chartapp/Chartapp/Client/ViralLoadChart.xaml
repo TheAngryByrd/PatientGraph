@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="LightSwitchApplication.ViralLoadChart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:tools="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Toolkit"
+             xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit">
+    
+    <!--<Grid x:Name="LayoutRoot" Background="White">
+
+    </Grid>-->
+    
+    <chartingToolkit:Chart x:Name="Name">
+        <chartingToolkit:Chart.Series>
+            <chartingToolkit:LineSeries Title="ViralLoadOverTime" 
+                                        ItemsSource="{Binding Screen.LabsCollection}" 
+                                        IndependentValueBinding="{Binding LabDate}"
+                                        DependentValueBinding="{Binding ViralLoad}">
+                
+            </chartingToolkit:LineSeries>
+        </chartingToolkit:Chart.Series>
+    </chartingToolkit:Chart>
+</UserControl>

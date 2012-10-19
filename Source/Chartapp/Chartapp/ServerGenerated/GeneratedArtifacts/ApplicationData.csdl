@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Namespace="ApplicationData" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <Association Name="Patient_Labs">
+    <End Role="Patient" Type="ApplicationData.Patient" Multiplicity="1" />
+    <End Role="Labs" Type="ApplicationData.Labs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Labs">
+        <PropertyRef Name="Patient_Labs" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Labs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="ViralLoad" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="LabDate" Type="DateTime" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="Patient_Labs" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="Patient" Relationship="ApplicationData.Patient_Labs" ToRole="Patient" FromRole="Labs" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="LabsCollection" Relationship="ApplicationData.Patient_Labs" ToRole="Labs" FromRole="Patient" />
+  </EntityType>
+  <EntityContainer Name="ApplicationDataObjectContext">
+    <EntitySet Name="LabsSet" EntityType="ApplicationData.Labs" />
+    <EntitySet Name="Patients" EntityType="ApplicationData.Patient" />
+    <AssociationSet Name="Patient_Labs" Association="ApplicationData.Patient_Labs">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="Labs" EntitySet="LabsSet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
